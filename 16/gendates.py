@@ -9,4 +9,3 @@ def gen_special_pybites_dates():
         days += 1
         if days % 100 == 0 or days % 365 == 0:
             yield PYBITES_BORN + timedelta(days=days)
-
