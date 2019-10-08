@@ -10,10 +10,7 @@ cars = {
 def get_all_jeeps(cars=cars):
     """return a comma  + space (', ') separated string of jeep models
        (original order)"""
-    new_string = ""
-    for model in cars['Jeep']:
-        new_string += f"{model}, "
-    return new_string[:-2]
+    return ', '.join(cars['Jeep'])
 
 
 def get_first_model_each_manufacturer(cars=cars):
