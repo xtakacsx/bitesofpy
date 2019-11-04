@@ -19,13 +19,26 @@ def check_equality(list1, list2):
        - return SAME_UNORDERED_DEDUPED if they have the same unordered content
          and reduced to unique items
        - return NO_EQUALITY if none of the previous cases match"""
+    # if list1 is list2:
+    #     return Equality.SAME_REFERENCE
+    # elif len(list1) == len(list2) and len(list1) == sum([1 for i, j in zip(list1, list2) if i == j]):
+    #     return Equality.SAME_ORDERED
+    # elif collections.Counter(list1) == collections.Counter(list2):
+    #     return Equality.SAME_UNORDERED
+    # elif set(list1) == set(list2):
+    #     return Equality.SAME_UNORDERED_DEDUPED
+    # else:
+    #     return Equality.NO_EQUALITY
     if list1 is list2:
         return Equality.SAME_REFERENCE
-    elif len(list1) == len(list2) and len(list1) == sum([1 for i, j in zip(list1, list2) if i == j]):
+
+    if list1 == list2:
         return Equality.SAME_ORDERED
-    elif collections.Counter(list1) == collections.Counter(list2):
+
+    if sorted(list1) == sorted(list2):
         return Equality.SAME_UNORDERED
-    elif set(list1) == set(list2):
+
+    if set(list1) == set(list2):
         return Equality.SAME_UNORDERED_DEDUPED
-    else:
-        return Equality.NO_EQUALITY
+
+    return Equality.NO_EQUALITY
