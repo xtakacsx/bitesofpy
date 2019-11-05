@@ -7,14 +7,15 @@ PYTHON = 'python'
 def contains_only_vowels(input_str: str) -> bool:
     """Receives input string and checks if all chars are
        VOWELS. Match is case insensitive."""
-    count = 0
-    for w in input_str.lower():
-        if w in VOWELS:
-            count += 1
-    if count == len(input_str):
-        return True
-    else:
-        return False
+    # count = 0
+    # for w in input_str.lower():
+    #     if w in VOWELS:
+    #         count += 1
+    # if count == len(input_str):
+    #     return True
+    # else:
+    #     return False
+    return all(c in VOWELS for c in input_str.lower())
 
 
 def contains_any_py_chars(input_str: str) -> bool:
