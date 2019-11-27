@@ -26,9 +26,9 @@ def get_models(automaker, year):
        return a set of models (a 'set' to avoid duplicate models)"""
     d = set(
         [
-            model["model"]
-            for _, model in enumerate(data)
-            if model["year"] == year and model["automaker"] == automaker
+            entry["model"]
+            for _, entry in enumerate(data)
+            if entry["year"] == year and entry["automaker"] == automaker
         ]
     )
     return d
