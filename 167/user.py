@@ -26,8 +26,6 @@ class User:
         """
         return f'{self.first_name[0].lower()}{self.last_name[:7].lower()}'
 
-    # TODO 3: you code
-    #
     # add a __str__ and a __repr__
     # see: https://stackoverflow.com/a/1438297
     # "__repr__ is for devs, __str__ is for customers"
