@@ -54,6 +54,5 @@ def create_stats_report(data=None):
                  sample_stdev=statistics.stdev(sample),
                  sample_variance=statistics.variance(sample),
                  )
-    print(stats)
 
     return STATS_OUTPUT.format(**stats)
