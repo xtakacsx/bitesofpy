@@ -42,8 +42,14 @@ def get_users_for_shell(passwd_output: str = PASSWD_OUTPUT,
     """Match the passwd_output string for users with grep_shell.
        Return a list of users.
     """
-    output_list = re.split('[\n]', passwd_output)
-    for i, x in enumerate(output_list):
-        output_list[i] = re.split('[:/]', x)
+    # output_list = re.split('[\n]', passwd_output)
+    # for i, x in enumerate(output_list):
+    #     output_list[i] = re.split('[:/]', x)
+    #
+    # return [entry[0] for entry in output_list if entry[-1] == grep_shell]
 
-    return [entry[0] for entry in output_list if entry[-1] == grep_shell]
+
+    for line in passwd_output.splitlines():
+        username, *_, shell_path = line.split(':')
+        if shell_path.split('/')[-1] == grep_shell:
+            yield username
