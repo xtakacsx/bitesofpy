@@ -1,6 +1,5 @@
-import itertools
+from itertools import combinations
 
 
 def find_number_pairs(numbers: list, N: int = 10) -> list:
-    comb = itertools.combinations(numbers, 2)
-    return [(n1, n2) for n1, n2 in comb if n1 + n2 == N]
+    return [pair for pair in combinations(numbers, 2) if sum(pair) == N]
