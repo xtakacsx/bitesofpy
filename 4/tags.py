@@ -4,7 +4,7 @@ import urllib.request
 import re
 
 # prep
-tempfile = os.path.join('tmp', 'feed')
+tempfile = os.path.join('/tmp', 'feed')
 urllib.request.urlretrieve(
     'https://bites-data.s3.us-east-2.amazonaws.com/feed',
     tempfile
