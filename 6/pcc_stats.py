@@ -36,10 +36,10 @@ def gen_files():
 
        -> use last column to filter out directories (= True)
     """
-    pattern = re.compile(r"(\d+)/(.+),true")
+    pattern = re.compile(r"(\d+)/(.+),True")
 
     with open(tempfile, "rt") as f:
-        data = f.read().lower().splitlines()
+        data = f.read().splitlines()
 
     return ((m.group(1), m.group(2)) for line in data for m in pattern.finditer(line))
 
@@ -51,10 +51,9 @@ def diehard_pybites():
        Calling this function on the dataset (held tempfile) should return:
        Stats(user='clamytoe', challenge=('01', 7))
     """
-    users_gen = gen_files()
-    for bite, user in users_gen:
+    for bite, user in gen_files():
         if user not in IGNORE:
             popular_challenges[bite] += 1
             users[user] += 1
-    return Stats(user=users.most_common()[0][0], challenge=popular_challenges.most_common()[0])
+    return Stats(user=users.most_common(1)[0][0], challenge=popular_challenges.most_common(1)[0])
 
