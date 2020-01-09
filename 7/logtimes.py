@@ -28,12 +28,9 @@ def convert_to_datetime(line):
        datetime(2014, 7, 3, 23, 27, 51)
     """
     pattern = re.compile(r"(\d{4}-\d{2}-.{11})")
+
     for m in pattern.finditer(line):
-        str_date = m.group(1)
-
-    date = datetime.strptime(str_date, "%Y-%m-%dT%H:%M:%S")
-
-    return date
+        return datetime.strptime(m.group(1), "%Y-%m-%dT%H:%M:%S")
 
 
 def time_between_shutdowns(loglines):
@@ -42,6 +39,5 @@ def time_between_shutdowns(loglines):
        calculate the timedelta between the first and last one.
        Return this datetime.timedelta object.
     """
-    dates = [convert_to_datetime(line) for line in loglines if line.endswith("Shutdown initiated.\n")]
-    diff = dates[1] - dates[0]
-    return diff
+    dates = [convert_to_datetime(line) for line in loglines if "Shutdown initiated" in line]
+    return max(dates) - min(dates)
