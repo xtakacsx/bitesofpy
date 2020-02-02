@@ -25,10 +25,9 @@ def load_words():
 
 def calc_word_value(word):
     """Given a word calculate its value using the LETTER_SCORES dict"""
-    return sum([LETTER_SCORES.get(letter.upper(), 0) for letter in word])
+    return sum(LETTER_SCORES.get(letter.upper(), 0) for letter in word)
 
 
 def max_word_value(words):
     """Given a list of words calculate the word with the maximum value and return it"""
-    results = {f"{word}": calc_word_value(word) for word in words}
-    return max(results, key=(lambda k: results[k]))
+    return max(words, key=calc_word_value)
