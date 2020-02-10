@@ -32,7 +32,7 @@ class Promo:
         return [key for key in BITES.keys() if key not in self.bites_done]
 
     def _pick_random_bite(self):
-        if len(self.bites_done) == len(BITES):
+        if not self.available_bites:
             raise NoBitesAvailable
 
         return random.choice(self.available_bites)
