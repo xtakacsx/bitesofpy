@@ -6,15 +6,14 @@ loggedin_users = ["mike", "sue"]
 
 def login_required(func):
     @wraps(func)
-    def inner(arg):
-        if arg not in known_users:
+    def wrapper(user, *args, **kwargs):
+        if user not in known_users:
             return "please create an account"
-        if arg not in loggedin_users:
+        if user not in loggedin_users:
             return "please login"
+        return func(user, *args, **kwargs)
 
-        return func(arg)
-
-    return inner
+    return wrapper
 
 
 @login_required
