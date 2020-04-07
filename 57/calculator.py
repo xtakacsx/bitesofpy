@@ -1,26 +1,23 @@
 import argparse
+from functools import reduce
+import operator
+
+operations = dict(add=sum,
+                  sub=lambda items: reduce(operator.sub, items),
+                  mul=lambda items: reduce(operator.mul, items),
+                  div=lambda items: reduce(operator.truediv, items))
+
 
 def calculator(operation, numbers):
     """TODO 1:
        Create a calculator that takes an operation and list of numbers.
        Perform the operation returning the result rounded to 2 decimals"""
-    answer = 0
-    if operation == 'add':
-        for number in numbers:
-            answer += float(number)
-    if operation == 'sub':
-        answer = float(numbers[0])
-        for number in numbers[1:]:
-            answer -= float(number)
-    if operation == 'mul':
-        answer = 1
-        for number in numbers:
-            answer *= float(number)
-    if operation == 'div':
-        answer = float(numbers[0])
-        for number in numbers[1:]:
-            answer /= float(number)
-    return round(answer,2)
+    func = operations.get(operation.lower())
+    if not func:
+        raise ValueError('Invalid operation')
+
+    numbers = [float(num) for num in numbers]
+    return round(func(numbers), 2)
 
 
 def create_parser():
@@ -29,13 +26,14 @@ def create_parser():
        - have one operation argument,
        - have one or more integers that can be operated on.
        Returns a argparse.ArgumentParser object.
+
        Note that type=float times out here so do the casting in the calculator
        function above!"""
-    parser = argparse.ArgumentParser(description="A simple calculator")
-    parser.add_argument('-a','--add',nargs='+',help='Sums numbers')
-    parser.add_argument('-s','--sub',nargs='+',help='Subtracts numbers')
-    parser.add_argument('-m','--mul',nargs='+',help='Multiplies numbers')
-    parser.add_argument('-d','--div',nargs='+',help='Divides numbers')
+    parser = argparse.ArgumentParser(description='A simple calculator')
+    parser.add_argument('-a', '--add', nargs='+', help="Sums numbers")
+    parser.add_argument('-s', '--sub', nargs='+', help="Subtracts numbers")
+    parser.add_argument('-m', '--mul', nargs='+', help="Multiplies numbers")
+    parser.add_argument('-d', '--div', nargs='+', help="Divides numbers")
     return parser
 
 
