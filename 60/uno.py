@@ -14,7 +14,7 @@ def create_uno_deck():
     for suit in SUITS:
         for i in cards:
             count = 1 if i == 0 else 2
-            for j in range(count):
+            for _ in range(count):
                 main_deck.append(UnoCard(suit=suit, name=str(i)))
     for _ in range(4):
         main_deck.append(UnoCard(suit=None, name="Wild"))
