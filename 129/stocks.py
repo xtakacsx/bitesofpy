@@ -32,24 +32,23 @@ def get_industry_cap(industry):
     """Return the sum of all cap values for given industry, use
        the _cap_str_to_mln_float to parse the cap values,
        return a float with 2 digit precision"""
-    cap_values = sum(
-        _cap_str_to_mln_float(company.get("cap"))
+    industry_capital = sum(
+        _cap_str_to_mln_float(company["cap"])
         for company in data
         if industry == company["industry"]
     )
-
-    return round(cap_values, 2)
+    return round(industry_capital, 2)
 
 
 def get_stock_symbol_with_highest_cap():
     """Return the stock symbol (e.g. PACD) with the highest cap, use
        the _cap_str_to_mln_float to parse the cap values"""
-    d = {}
+    capital = {}
     for company in data:
-        if company["symbol"] not in d:
-            d[company["symbol"]] = 0
-        d[company["symbol"]] += _cap_str_to_mln_float(company["cap"])
-    return list({k: v for k, v in sorted(d.items(), key=lambda item: item[1])}.keys())[-1]
+        if company["symbol"] not in capital:
+            capital[company["symbol"]] = 0
+        capital[company["symbol"]] += _cap_str_to_mln_float(company["cap"])
+    return list({k: v for k, v in sorted(capital.items(), key=lambda item: item[1])}.keys())[-1]
 
 
 def get_sectors_with_max_and_min_stocks():
@@ -59,8 +58,7 @@ def get_sectors_with_max_and_min_stocks():
     for company in data:
         if 'n/a' in company['sector']:
             continue
-        if company['sector'] in sectors:
-            sectors[company['sector']] += 1
-        else:
+        if company['sector'] not in sectors:
             sectors[company['sector']] = 1
+        sectors[company['sector']] += 1
     return max(sectors.items(), key=lambda item: item[1])[0], min(sectors.items(), key=lambda item: item[1])[0]
